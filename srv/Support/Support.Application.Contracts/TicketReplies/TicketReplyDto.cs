@@ -9,5 +9,6 @@ namespace Support.Application.Contracts.TicketReplies
     public class TicketReplyDto
     {
         public string Text { get; set; }
+        public DateTime ReplyDate { get; set; }
     }
 }

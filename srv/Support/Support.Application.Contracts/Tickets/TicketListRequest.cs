@@ -6,7 +6,10 @@ using System.Threading.Tasks;
 
 namespace Support.Application.Contracts.Tickets
 {
-    internal class TicketListRequest
+    public class TicketListRequest
     {
+        public int PageSize { get; set; }
+        public int Offset { get; set; }
+        public string TitleFilter { get; set; }
     }
 }

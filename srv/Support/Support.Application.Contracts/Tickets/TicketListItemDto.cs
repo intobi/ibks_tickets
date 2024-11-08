@@ -6,7 +6,14 @@ using System.Threading.Tasks;
 
 namespace Support.Application.Contracts.Tickets
 {
-    internal class TicketListItemDto
+    public class TicketListItemDto
     {
+        public long Id { get; set; }
+        public int PriorityId { get; set; }
+        public int StatusId { get; set; }
+        public string Title { get; set; }
+        public string ApplicationName { get; set; }
+        public int TypeId { get; set; }
+        public DateTime Date { get; set; }
     }
 }

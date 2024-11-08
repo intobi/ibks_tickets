@@ -8,13 +8,13 @@ namespace Support.Application.Contracts.Tickets
 {
     public class TicketDetailsDto
     {
-        public int Id { get; set; }
+        public long Id { get; set; }
         public int PriorityId { get; set; }
         public int StatusId { get; set; }
         public int ApplicationId { get; set; }
         public int TypeId { get; set; }
         public string Title { get; set; }
-        public string Description { get; set; }
-        public List<string> Replies { get; set; }
+        public string? Description { get; set; }
+        public DateTime Date { get; set; }
     }
 }

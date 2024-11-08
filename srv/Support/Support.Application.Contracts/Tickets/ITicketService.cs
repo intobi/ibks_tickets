@@ -10,5 +10,6 @@ namespace Support.Application.Contracts.Tickets
     {
         Task<TicketListPageDto> GetTicketList(TicketListRequest request);
         Task<TicketDetailsDto> CreateTicket(TicketCreateRequest request);
+        Task<TicketDetailsDto> UpdateTicket(TicketUpdateRequest request);
     }
 }

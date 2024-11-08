@@ -8,7 +8,7 @@ namespace Support.Application.Contracts.Tickets
 {
     public class TicketUpdateRequest
     {
-        public int Id { get; set; }
+        public int TicketId { get; set; }
         public int PriorityId { get; set; }
         public int StatusId { get; set; }
         public int ApplicationId { get; set; }
