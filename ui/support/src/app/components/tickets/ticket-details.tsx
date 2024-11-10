@@ -1,6 +1,7 @@
 'use client'
 import { useEffect, useState } from 'react';
 import { fetchTicketDetails, updateTicket } from '../../services/api';
+import Link from 'next/link';
 
 export default function TicketDetails({ ticketId }: any) {
     const [ticket, setTicket]: any = useState(null);
@@ -47,6 +48,7 @@ export default function TicketDetails({ ticketId }: any) {
             priorityId: parseInt(priorityId),
             applicationId: parseInt(applicationId),
             statusId: parseInt(statusId),
+            applicationName: 'HR',
         };
 
         try {
@@ -95,9 +97,10 @@ export default function TicketDetails({ ticketId }: any) {
                         className="w-full p-2 border border-gray-300 rounded"
                     >
                         <option value="">Select Type</option>
-                        <option value="1">Issue</option>
-                        <option value="2">Suggestion</option>
-                        {/* Add more options here as needed */}
+                        <option value="1">Question</option>
+                        <option value="2">Issue</option>
+                        <option value="3">Suggestion</option>
+                        <option value="4">Feedback</option>
                     </select>
                 </div>
                 <div>
@@ -110,9 +113,9 @@ export default function TicketDetails({ ticketId }: any) {
                     >
                         <option value="">Select Priority</option>
                         <option value="1">Low</option>
-                        <option value="2">Normal</option>
+                        <option value="2">Medium</option>
                         <option value="3">High</option>
-                        {/* Add more options here as needed */}
+                        <option value="4">None</option>
                     </select>
                 </div>
                 <div>
@@ -124,11 +127,10 @@ export default function TicketDetails({ ticketId }: any) {
                         className="w-full p-2 border border-gray-300 rounded"
                     >
                         <option value="">Select Application</option>
-                        <option value="1">Planner</option>
-                        <option value="2">Loader</option>
-                        <option value="3">Finance</option>
-                        <option value="4">PIM</option>
-                        {/* Add more options here as needed */}
+                        <option value="1">Loader</option>
+                        <option value="2">Finance</option>
+                        <option value="3">HR</option>
+                        <option value="12">Clusters</option>
                     </select>
                 </div>
                 <div>
@@ -141,18 +143,30 @@ export default function TicketDetails({ ticketId }: any) {
                     >
                         <option value="">Select Status</option>
                         <option value="1">New</option>
-                        <option value="2">In Progress</option>
-                        <option value="3">Resolved</option>
-                        {/* Add more options here as needed */}
+                        <option value="2">Open</option>
+                        <option value="3">Awaiting response - User</option>
+                        <option value="4">Awaiting response - Development</option>
+                        <option value="5">Awaiting response - Vendor</option>
+                        <option value="6">Closed</option>
                     </select>
                 </div>
-                <button
-                    type="submit"
-                    disabled={isSubmitting}
-                    className="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600"
-                >
-                    {isSubmitting ? 'Updating...' : 'Update Ticket'}
-                </button>
+                <div className="flex align-center justify-between">
+                    <Link href="/tickets">
+                        <button
+                            type="submit"
+                            className="bg-gray-500 text-white py-2 px-4 rounded hover:bg-gray-600"
+                        >
+                            Close
+                        </button>
+                    </Link>
+                    <button
+                        type="submit"
+                        disabled={isSubmitting}
+                        className="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600"
+                    >
+                        {isSubmitting ? 'Updating...' : 'Update Ticket'}
+                    </button>
+                </div>
             </form>
         </div>
     );

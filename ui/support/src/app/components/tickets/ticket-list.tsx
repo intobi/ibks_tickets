@@ -47,14 +47,14 @@ export default function TicketList() {
                                     <div className="text-blue-500">{ticket.title}</div>
                                 </Link>
                             </td>
-                            <td className="px-6 py-4 border-b">{ticket.module}</td>
+                            <td className="px-6 py-4 border-b">{ticket.applicationName}</td>
                             <td className="px-6 py-4 border-b">{ticket.type}</td>
-                            <td className="px-6 py-4 border-b">{ticket.state}</td>
+                            <td className="px-6 py-4 border-b">{ticket.status}</td>
                         </tr>
                     ))}
                 </tbody>
             </table>
-            
+
             <div className="flex justify-between items-center mt-4">
                 <button
                     onClick={handlePreviousPage}

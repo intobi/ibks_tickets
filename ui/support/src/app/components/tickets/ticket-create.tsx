@@ -1,6 +1,8 @@
 'use client'
 import { useState } from 'react';
+import { useRouter } from "next/navigation";
 import { createTicket } from '../../services/api';
+import Link from 'next/link';
 
 export default function TicketCreate() {
     const [title, setTitle] = useState('');
@@ -9,6 +11,7 @@ export default function TicketCreate() {
     const [priorityId, setPriorityId] = useState('');
     const [applicationId, setApplicationId] = useState('');
     const [isSubmitting, setIsSubmitting] = useState(false);
+    const router = useRouter();
 
     const handleSubmit = async (e: any) => {
         e.preventDefault();
@@ -20,11 +23,13 @@ export default function TicketCreate() {
             typeId: parseInt(typeId),
             priorityId: parseInt(priorityId),
             applicationId: parseInt(applicationId),
+            applicationName: 'HR',
         };
 
-        try {
-            await createTicket(ticketData);
+            try {
+            const createdTicket = await createTicket(ticketData);
             alert('Ticket created successfully!');
+            router.push(`/tickets/${createdTicket.id}`);
             setTitle('');
             setDescription('');
             setTypeId('');
@@ -69,9 +74,10 @@ export default function TicketCreate() {
                         className="w-full p-2 border border-gray-300 rounded"
                     >
                         <option value="">Select Type</option>
-                        <option value="1">Issue</option>
-                        <option value="2">Suggestion</option>
-                        {/* Add more options here as needed */}
+                        <option value="1">Question</option>
+                        <option value="2">Issue</option>
+                        <option value="3">Suggestion</option>
+                        <option value="4">Feedback</option>
                     </select>
                 </div>
                 <div>
@@ -84,9 +90,9 @@ export default function TicketCreate() {
                     >
                         <option value="">Select Priority</option>
                         <option value="1">Low</option>
-                        <option value="2">Normal</option>
+                        <option value="2">Medium</option>
                         <option value="3">High</option>
-                        {/* Add more options here as needed */}
+                        <option value="4">None</option>
                     </select>
                 </div>
                 <div>
@@ -98,20 +104,29 @@ export default function TicketCreate() {
                         className="w-full p-2 border border-gray-300 rounded"
                     >
                         <option value="">Select Application</option>
-                        <option value="1">Planner</option>
-                        <option value="2">Loader</option>
-                        <option value="3">Finance</option>
-                        <option value="4">PIM</option>
-                        {/* Add more options here as needed */}
+                        <option value="1">Loader</option>
+                        <option value="2">Finance</option>
+                        <option value="3">HR</option>
+                        <option value="12">Clusters</option>
                     </select>
                 </div>
-                <button
-                    type="submit"
-                    disabled={isSubmitting}
-                    className="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600"
-                >
-                    {isSubmitting ? 'Creating...' : 'Create Ticket'}
-                </button>
+                <div className="flex align-center justify-between">
+                    <Link href="/tickets">
+                        <button
+                            type="submit"
+                            className="bg-gray-500 text-white py-2 px-4 rounded hover:bg-gray-600"
+                        >
+                            Close
+                        </button>
+                    </Link>
+                    <button
+                        type="submit"
+                        disabled={isSubmitting}
+                        className="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600"
+                    >
+                        {isSubmitting ? 'Creating...' : 'Create Ticket'}
+                    </button>
+                </div>
             </form>
         </div>
     );

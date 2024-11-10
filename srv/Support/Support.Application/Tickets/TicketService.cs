@@ -33,12 +33,15 @@ namespace Support.Application.Tickets
             var ticket = new Ticket()
             {
                 Title = request.Title,
-                Description = request.Descrption,
+                Description = request.Description,
                 ApplicationId = request.ApplicationId,
+                ApplicationName = request.ApplicationName,
                 PriorityId = ticketPriority.Id,
                 TicketTypeId = ticketType.Id,
                 StatusId = newStatus.Id,
                 Date = ticketDate,
+                InstalledEnvironmentId = 1,
+                UserId = 1,
             };
 
             db.Tickets.Add(ticket);
@@ -61,28 +64,31 @@ namespace Support.Application.Tickets
                 .OrderByDescending(x => x.Date)
                 .Skip(request.PageSize * request.Page)
                 .Take(request.PageSize)
+                .Include(x => x.Status)
+                .Include(x => x.Priority)
+                .Include(x => x.TicketType)
                 .Select(x => new
                 {
-                    x.StatusId,
+                    Status = x.Status.Title,
                     x.ApplicationName,
                     x.Date,
                     x.Id,
-                    x.PriorityId,
+                    Priority = x.Priority.Title,
                     x.Title,
-                    x.TicketTypeId,
+                    Type = x.TicketType.Title,
                 })
                 .ToListAsync();
 
             var itemDtos = pagedItems
                 .Select(x => new TicketListItemDto()
                 {
-                    StatusId = x.StatusId,
+                    Status = x.Status,
                     ApplicationName = x.ApplicationName,
                     Date = x.Date,
                     Id = x.Id,
-                    PriorityId = x.PriorityId,
+                    Priority = x.Priority,
                     Title = x.Title,
-                    TypeId = x.TicketTypeId,
+                    Type = x.Type,
                 })
                 .ToList();
 
@@ -104,6 +110,7 @@ namespace Support.Application.Tickets
 
             ticket.Title = request.Title;
             ticket.Description = request.Description;
+            ticket.ApplicationName = request.ApplicationName;
             ticket.ApplicationId = request.ApplicationId;
             ticket.PriorityId = request.PriorityId;
             ticket.TicketTypeId = request.TypeId;
