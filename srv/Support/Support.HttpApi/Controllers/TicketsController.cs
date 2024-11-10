@@ -15,7 +15,7 @@ namespace Support.HttpApi.Controllers
         }
 
         [HttpGet]
-        public Task<TicketListPageDto> GetList(TicketListRequest request)
+        public Task<TicketListPageDto> GetList([FromQuery] TicketListRequest request)
         {
             return ticketService.GetTicketList(request);
         }

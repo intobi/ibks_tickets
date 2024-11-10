@@ -9,7 +9,7 @@ namespace Support.Application.Contracts.Tickets
     public class TicketListRequest
     {
         public int PageSize { get; set; }
-        public int Offset { get; set; }
-        public string TitleFilter { get; set; }
+        public int Page { get; set; }
+        public string? TitleFilter { get; set; }
     }
 }

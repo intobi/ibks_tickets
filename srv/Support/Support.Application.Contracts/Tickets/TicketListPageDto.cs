@@ -8,9 +8,9 @@ namespace Support.Application.Contracts.Tickets
 {
     public class TicketListPageDto
     {
-        public int TotalCount { get; set; }
+        public int TotalPages { get; set; }
         public int PageSize { get; set; }
-        public int Offset { get; set; }
+        public int Page { get; set; }
         public List<TicketListItemDto> Items { get; set; }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using Azure.Core;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Query;
 using Microsoft.IdentityModel.Tokens;
 using Support.Application.Contracts.Tickets;
 using Support.DataAccess.EfCore;
@@ -51,13 +52,14 @@ namespace Support.Application.Tickets
         {
             string? titlePattern = request.TitleFilter.IsNullOrEmpty() ? null : $"%{request.TitleFilter}%";
 
-            var filteredItems = db.Tickets
-                .Where(x => EF.Functions.Like(x.Title, titlePattern));
+            IQueryable<Ticket> filteredItems = db.Tickets;
+            if (titlePattern != null)
+                filteredItems = filteredItems.Where(x => EF.Functions.Like(x.Title, titlePattern));
 
             int total = await filteredItems.CountAsync();
             var pagedItems = await filteredItems
                 .OrderByDescending(x => x.Date)
-                .Skip(request.Offset)
+                .Skip(request.PageSize * request.Page)
                 .Take(request.PageSize)
                 .Select(x => new
                 {
@@ -88,8 +90,8 @@ namespace Support.Application.Tickets
             {
                 PageSize = request.PageSize,
                 Items = itemDtos,
-                Offset = request.Offset,
-                TotalCount = total,
+                Page = request.Page,
+                TotalPages = Convert.ToInt32(Math.Ceiling((double)total / (double)request.PageSize)),
             };
         }
 

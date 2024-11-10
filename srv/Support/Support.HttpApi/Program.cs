@@ -15,6 +15,8 @@ namespace Support.HttpApi
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
 
+            builder.Services.AddApplicationServices();
+
             var sqlConnString = builder.Configuration.GetConnectionString("Default");
             builder.Services.AddDbContext<SupportContext>(opt => opt.UseSqlServer(sqlConnString));
 
@@ -26,10 +28,10 @@ namespace Support.HttpApi
                 app.UseSwaggerUI();
             }
 
+            app.UseCors(opt => opt.AllowAnyHeader().AllowAnyOrigin().AllowAnyMethod());
             app.UseHttpsRedirection();
 
             app.UseAuthorization();
-
 
             app.MapControllers();
 

@@ -49,7 +49,7 @@ namespace Support.Application.TicketReplies
         }
 
         private static TicketReplyDto MapReply(TicketReply reply)
-            => new TicketReplyDto()
+            => new ()
             {
                 ReplyDate = reply.ReplyDate,
                 Text = reply.Reply,
