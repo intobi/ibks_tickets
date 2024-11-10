@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Azure.Core;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Support.Application.Contracts.Tickets;
 using Support.DataAccess.EfCore;
@@ -110,6 +111,12 @@ namespace Support.Application.Tickets
 
             await db.SaveChangesAsync();
 
+            return MapToDetails(ticket);
+        }
+
+        public async Task<TicketDetailsDto> GetTicketDetails(long ticketId)
+        {
+            var ticket = await db.Tickets.FirstAsync(x => x.Id == ticketId);
             return MapToDetails(ticket);
         }
 

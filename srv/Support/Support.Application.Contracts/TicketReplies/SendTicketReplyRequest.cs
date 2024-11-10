@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace Support.Application.Contracts.TicketReplies
 {
-    public interface ITicketReplyService
+    public class SendTicketReplyRequest
     {
-        Task<List<TicketReplyDto>> GetTicketReplies(long ticketId);
-        Task<TicketReplyDto> SendTicketReply(SendTicketReplyRequest request);
+        public long TicketId { get; set; }
+        public string ReplyText { get; set; }
     }
 }
